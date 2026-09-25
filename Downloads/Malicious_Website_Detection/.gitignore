@@ -14,7 +14,7 @@ env.bak/
 venv.bak/
 
 # Large files - excluded from GitHub (too big)
-model.pkl
+# model.pkl is now small enough to include (Decision Tree ~3-5MB)
 malicious_phish.csv
 
 # NOTE: malicious_phish.zip IS included in the repo
