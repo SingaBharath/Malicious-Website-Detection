@@ -9,7 +9,7 @@
 [![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
 [![Vercel](https://img.shields.io/badge/Deployed-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com)
 
-**Live Demo: [malicious-website-detection-s5pq.vercel.app](https://malicious-website-detection-s5pq.vercel.app)**
+**Live Demo: [malicious-website-detection.vercel.app](https://malicious-website-detection.vercel.app)**
 
 </div>
 
