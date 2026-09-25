@@ -13,9 +13,12 @@ ENV/
 env.bak/
 venv.bak/
 
-# Large model/data files (too big for GitHub)
+# Large files - excluded from GitHub (too big)
 model.pkl
 malicious_phish.csv
+
+# NOTE: malicious_phish.zip IS included in the repo
+# It is needed by build.sh to train the model on Render
 
 # Jupyter checkpoints
 .ipynb_checkpoints/
