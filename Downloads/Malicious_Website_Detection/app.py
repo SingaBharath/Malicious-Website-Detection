@@ -1,6 +1,5 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import joblib
 import pandas as pd
@@ -94,11 +93,6 @@ def predict_url(request: URLRequest):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-if not os.path.exists("frontend"):
-    os.makedirs("frontend")
-
-app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
