@@ -1,254 +1,243 @@
+<div align="center">
+
 # 🛡️ Malicious Website Detection
 
-> A machine learning-powered web application that detects malicious URLs in real-time using lexical and host-based features.
+**An AI-powered real-time URL threat detection system using Machine Learning**
 
-![Python](https://img.shields.io/badge/Python-3.9+-blue?logo=python)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green?logo=fastapi)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-orange?logo=scikit-learn)
-![Vercel](https://img.shields.io/badge/Deploy-Vercel-black?logo=vercel)
+[![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
+[![Vercel](https://img.shields.io/badge/Deployed-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com)
+
+**🌐 Live Demo → [malicious-website-detection-s5pq.vercel.app](https://malicious-website-detection-s5pq.vercel.app)**
+
+</div>
 
 ---
 
-## 📌 What It Does
+## 📖 About This Project
 
-Paste any URL and the app will classify it as:
+This project is an end-to-end **Malicious Website Detection System** that leverages Machine Learning to classify URLs in real-time. It was developed as part of original research exploring the effectiveness of different ML classifiers on URL-based threat detection.
 
-| Label | Meaning |
-|-------|---------|
-| ✅ **Benign** | Safe to visit |
-| ⚠️ **Phishing** | Tries to steal your credentials |
-| 💀 **Malware** | Hosts malicious software |
-| 🖼️ **Defacement** | Webpage content has been altered |
+The system analyzes a given URL using **lexical features** (structural properties of the URL string) and classifies it into one of four categories:
+
+| Category | Description |
+|----------|-------------|
+| ✅ **Benign** | Safe website — no threats detected |
+| 🎣 **Phishing** | Designed to steal user credentials |
+| 💀 **Malware** | Hosts or distributes malicious software |
+| 🖼️ **Defacement** | Website content has been illegitimately altered |
+
+---
+
+## 📄 Research Paper
+
+<table>
+<tr>
+<td width="80" align="center">📑</td>
+<td>
+
+**Title:** A Comparative Analysis of Machine Learning Classifiers for Malicious Website Detection via Lexical and Host Features
+
+**Author:** SingaBharath
+
+**Domain:** Cybersecurity · Machine Learning · Web Security
+
+**Status:** `Research Work`
+
+> This system is the practical implementation of the research. The paper evaluates multiple ML classifiers — including Decision Trees, Random Forests, and others — on a large-scale dataset of 650,000+ URLs, comparing their accuracy, precision, recall, and F1-scores in detecting web-based threats.
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🧠 How It Works
+
+```
+User inputs URL
+      │
+      ▼
+┌─────────────────────┐
+│  1. URL Validation  │  ── Rejects non-URL inputs (e.g., random text)
+└────────┬────────────┘
+         │
+         ▼
+┌─────────────────────┐
+│  2. Trusted Check   │  ── 50+ known safe domains (Google, Flipkart, etc.)
+└────────┬────────────┘
+         │
+         ▼
+┌─────────────────────┐
+│  3. Live URL Check  │  ── Checks if website actually exists on the internet
+└────────┬────────────┘
+         │
+         ▼
+┌─────────────────────┐
+│  4. Pattern Check   │  ── IP address URLs, suspicious TLDs, phishing keywords
+└────────┬────────────┘
+         │
+         ▼
+┌─────────────────────┐
+│  5. ML Classifier   │  ── Decision Tree trained on 650K+ URLs
+└────────┬────────────┘
+         │
+         ▼
+    Final Result
+```
+
+---
+
+## 🤖 ML Model Details
+
+| Property | Value |
+|----------|-------|
+| **Algorithm** | Decision Tree Classifier |
+| **Dataset** | [Malicious URLs Dataset – Kaggle](https://www.kaggle.com/datasets/sid321axn/malicious-urls-dataset) |
+| **Total Records** | 651,191 URLs |
+| **Model Accuracy** | 92.26% |
+| **Model Size** | ~0.4 MB (Vercel-compatible) |
+| **Features Used** | URL length, dot count, hyphen count, slash count, `@` symbols, `?`, `=`, HTTP/HTTPS flag, digit count |
+
+### Classification Report
+
+| Class | Precision | Recall | F1-Score |
+|-------|-----------|--------|----------|
+| Benign | 0.94 | 0.97 | 0.96 |
+| Defacement | 0.93 | 0.97 | 0.95 |
+| Malware | 0.94 | 0.89 | 0.91 |
+| Phishing | 0.79 | 0.69 | 0.74 |
+| **Overall** | **0.92** | **0.92** | **0.92** |
 
 ---
 
 ## 🗂️ Project Structure
 
 ```
-Malicious_Website_Detection/
+Malicious-Website-Detection/
 │
-├── app.py                          # FastAPI backend (REST API)
-├── train_model.py                  # Script to train the ML model
-├── update_nb.py                    # Notebook sync utility
-├── requirements.txt                # Python dependencies
-├── vercel.json                     # Vercel deployment config
-├── label_encoder.pkl               # Saved label encoder
-├── model.pkl                       # Trained ML model (generated locally)
-├── malicious_phish.csv             # Dataset (not in repo - too large)
+├── 📄 app.py                          # FastAPI backend with 5-layer detection
+├── 🧠 train_model.py                  # ML model training script
+├── 📊 Malicious_website_Detection.ipynb  # Full EDA + model comparison notebook
+├── 🔧 requirements.txt                # Python dependencies
+├── ⚙️  vercel.json                     # Vercel deployment config
+├── 🤖 model.pkl                       # Trained Decision Tree model (0.4 MB)
+├── 🏷️  label_encoder.pkl               # Class label encoder
 │
-└── frontend/
-    ├── index.html                  # Main webpage UI
-    ├── style.css                   # Styles
-    └── script.js                   # Frontend logic
+└── 📁 frontend/
+    ├── 🌐 index.html                  # Main UI
+    ├── 🎨 style.css                   # Styling
+    └── ⚡ script.js                   # Frontend logic & validation
 ```
 
 ---
 
-## 🧠 ML Model Details
-
-- **Algorithm**: Random Forest Classifier
-- **Dataset**: [Malicious URLs Dataset](https://www.kaggle.com/datasets/sid321axn/malicious-urls-dataset) (~450K URLs)
-- **Classes**: `benign`, `phishing`, `defacement`, `malware`
-- **Features Used**:
-  - URL length
-  - Number of dots, hyphens, slashes
-  - Presence of `@`, `?`, `=` symbols
-  - HTTP vs HTTPS
-  - Digit count in URL
-
----
-
-## ⚙️ Local Setup & Run
-
-### Step 1 — Clone the repo
+## 🚀 Local Setup
 
 ```bash
+# 1. Clone the repository
 git clone https://github.com/SingaBharath/Malicious-Website-Detection.git
-cd Malicious-Website-Detection
-```
+cd Malicious-Website-Detection/Downloads/Malicious_Website_Detection
 
-### Step 2 — Create a virtual environment
-
-```bash
+# 2. Create virtual environment
 python -m venv venv
+venv\Scripts\activate        # Windows
+# source venv/bin/activate   # macOS/Linux
 
-# Windows
-venv\Scripts\activate
-
-# macOS/Linux
-source venv/bin/activate
-```
-
-### Step 3 — Install dependencies
-
-```bash
+# 3. Install dependencies
 pip install -r requirements.txt
-```
 
-### Step 4 — Download the dataset
+# 4. Download dataset from Kaggle and place malicious_phish.csv in root
+# https://www.kaggle.com/datasets/sid321axn/malicious-urls-dataset
 
-Download `malicious_phish.csv` from [Kaggle](https://www.kaggle.com/datasets/sid321axn/malicious-urls-dataset) and place it in the project root.
-
-### Step 5 — Train the model
-
-```bash
+# 5. Train the model
 python train_model.py
-```
 
-This generates `model.pkl` and `label_encoder.pkl`.
-
-### Step 6 — Run the app
-
-```bash
+# 6. Run the app
 python app.py
 ```
 
-Open your browser at **http://localhost:8000** 🎉
+Open **http://localhost:8000** in your browser.
 
 ---
 
-## 🚀 Deploy to Vercel (Step-by-Step)
-
-> **Important:** Vercel has a **50MB limit** on serverless functions. Since `model.pkl` is ~150MB, follow this **two-part deployment strategy**:
->
-> - **Frontend** → Deploy on Vercel (free, instant)
-> - **Backend API** → Deploy on [Render](https://render.com) (free tier available)
-
----
-
-### 🌐 Part 1: Deploy Frontend on Vercel
-
-#### Option A: Via Vercel Website (Recommended for beginners)
-
-1. Go to **[vercel.com](https://vercel.com)** and sign in with GitHub
-2. Click **"Add New Project"**
-3. Import your repo: `SingaBharath/Malicious-Website-Detection`
-4. In **"Framework Preset"**, select **Other**
-5. Set **Root Directory** to `frontend`
-6. Click **"Deploy"**
-
-Your frontend will be live at a URL like:
-`https://malicious-website-detection.vercel.app`
-
----
-
-#### Option B: Via Vercel CLI
-
-```bash
-# Install Vercel CLI
-npm install -g vercel
-
-# Login
-vercel login
-
-# Deploy from the frontend folder
-cd frontend
-vercel
-
-# Follow the prompts:
-# - Set up and deploy? → Yes
-# - Which scope? → your account
-# - Link to existing project? → No
-# - Project name? → malicious-website-detection
-# - Directory → ./
-# - Override settings? → No
-```
-
----
-
-### 🖥️ Part 2: Deploy Backend (FastAPI) on Render
-
-Since `model.pkl` is too large for Vercel, deploy the Python backend on **Render**:
-
-1. Go to **[render.com](https://render.com)** and sign in with GitHub
-2. Click **"New +"** → **"Web Service"**
-3. Connect your GitHub repo: `SingaBharath/Malicious-Website-Detection`
-4. Fill in settings:
-   - **Name**: `malicious-website-detection-api`
-   - **Runtime**: `Python 3`
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `uvicorn app:app --host 0.0.0.0 --port $PORT`
-5. Click **"Create Web Service"**
-
-> ⚠️ **Note**: You must upload `model.pkl` to Render or use Render's persistent disk. The file is excluded from GitHub due to its 150MB size.
-
----
-
-### 🔗 Connect Frontend to Backend
-
-Once your backend is deployed on Render (e.g., `https://your-api.onrender.com`), update the API URL in `frontend/script.js`:
-
-```js
-// Change this line:
-const API_URL = "http://localhost:8000";
-
-// To your Render backend URL:
-const API_URL = "https://your-api.onrender.com";
-```
-
-Then redeploy the frontend on Vercel.
-
----
-
-## 📊 Jupyter Notebook
-
-The file `Malicious_website_Detection.ipynb` contains:
-- Exploratory Data Analysis (EDA)
-- Feature engineering
-- Model comparison (Random Forest, Decision Tree, etc.)
-- Evaluation metrics (accuracy, confusion matrix, etc.)
-
----
-
-## 🧪 API Reference
+## 🌐 API Reference
 
 ### `POST /api/predict`
 
 **Request:**
 ```json
 {
-  "url": "http://suspicious-login.tk/paypal/verify"
+  "url": "https://suspicious-paypal-verify.tk/login"
 }
 ```
 
-**Response:**
+**Response (Threat):**
 ```json
 {
-  "url": "http://suspicious-login.tk/paypal/verify",
+  "url": "https://suspicious-paypal-verify.tk/login",
   "prediction": "phishing",
-  "threat_score": 94.3,
+  "threat_score": 95.0,
+  "is_safe": false,
   "class_probabilities": {
-    "benign": 0.02,
-    "phishing": 0.94,
-    "defacement": 0.02,
-    "malware": 0.02
+    "benign": 0.05,
+    "phishing": 0.95,
+    "defacement": 0.0,
+    "malware": 0.0
   },
-  "is_safe": false
+  "note": "Suspicious URL patterns detected."
+}
+```
+
+**Response (Safe):**
+```json
+{
+  "url": "https://google.com",
+  "prediction": "benign",
+  "threat_score": 0.0,
+  "is_safe": true,
+  "note": "Verified trusted domain."
 }
 ```
 
 ---
 
-## 📦 Dependencies
+## 🔒 Detection Layers
 
-```
-fastapi
-uvicorn
-joblib
-pandas
-scikit-learn
-pydantic
-python-multipart
-```
+| Layer | Check | Purpose |
+|-------|-------|---------|
+| 1 | **URL Format Validation** | Rejects non-URLs (plain text, keywords) |
+| 2 | **Trusted Domain Whitelist** | 50+ verified safe domains |
+| 3 | **Live URL Reachability** | Checks if website actually exists |
+| 4 | **Suspicious Pattern Analysis** | IP URLs, free TLDs (`.tk`, `.ml`), phishing keywords |
+| 5 | **ML Model Classification** | Decision Tree on 650K+ URL dataset |
 
 ---
 
-## 🤝 Contributing
+## 📦 Tech Stack
 
-Pull requests are welcome! For major changes, please open an issue first.
+| Layer | Technology |
+|-------|-----------|
+| **Backend** | Python, FastAPI, Uvicorn |
+| **ML** | scikit-learn, pandas, joblib |
+| **HTTP Checks** | httpx |
+| **Frontend** | HTML5, CSS3, Vanilla JS |
+| **Hosting** | Vercel |
+| **Version Control** | GitHub |
 
 ---
 
 ## 📝 License
 
 This project is open source under the [MIT License](LICENSE).
+
+---
+
+<div align="center">
+
+**Made with ❤️ by [SingaBharath](https://github.com/SingaBharath)**
+
+⭐ Star this repo if you found it useful!
+
+</div>
