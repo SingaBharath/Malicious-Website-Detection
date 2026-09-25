@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malicious Website Detection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Threat Scanner</h1>
+            <p>Real-time URL inspection</p>
+        </div>
+
+        <main>
+            <form id="scan-form">
+                <div class="input-group">
+                    <input type="text" id="url-input" placeholder="Enter URL" required autocomplete="off">
+                    <button type="submit" id="submit-btn" class="submit-btn">Scan</button>
+                </div>
+            </form>
+
+            <div id="loading" class="loading hidden">
+                <p>Analyzing...</p>
+            </div>
+
+            <div id="results" class="results hidden">
+                <div id="result-status"></div>
+                
+                <div class="detail-card">
+                    <p><strong>Confidence Score:</strong> <span id="score-text"></span></p>
+                </div>
+
+                <div class="detail-card">
+                    <p><strong>Category Breakdown:</strong></p>
+                    <div id="category-bars"></div>
+                </div>
+
+                <div id="security-warning" class="security-warning"></div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
