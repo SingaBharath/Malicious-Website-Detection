@@ -72,6 +72,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            if (response.status === 404) {
+                const err = await response.json();
+                showInputError(err.detail || 'This website does not exist. Please check the URL and try again.');
+                return;
+            }
+
             if (!response.ok) throw new Error('Server error');
 
             const data = await response.json();
